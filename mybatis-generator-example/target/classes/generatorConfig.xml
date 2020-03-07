@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry location="E:/maven/repo/mysql/mysql-connector-java/5.1.41/mysql-connector-java-5.1.41.jar" />
+
+    <context id="MySqlContext" targetRuntime="MyBatis3">
+
+        <jdbcConnection driverClass="org.postgresql.Driver"
+                        connectionURL="jdbc:postgresql://localhost/cisc4900db"
+                        userId="postgres"
+                        password="">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.example.mbg.demo.mybatisgeneratorexample.mbg.model"
+                            targetProject="mybatis-generator-example\src\main\java"/>
+
+        <!--指定生成mapper.xml的路径-->
+        <sqlMapGenerator targetPackage="com.example.mbg.demo.mybatisgeneratorexample.mbg.mapper"
+                         targetProject="mybatis-generator-example\src\main\resources"/>
+        <!--指定生成mapper接口的的路径-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.mbg.demo.mybatisgeneratorexample.mbg.mapper"
+                             targetProject="mybatis-generator-example\src\main\java"/>
+
+
+        <table tableName="brand">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

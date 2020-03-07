@@ -1,0 +1,9 @@
+# material used
+# https://blog.csdn.net/m0_37524586/article/details/88351833
+# https://v.qq.com/x/page/l0891rocdcm.html
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost/testdb
+    username: postgres
+    password:
+    driverClassName: org.postgresql.Driver

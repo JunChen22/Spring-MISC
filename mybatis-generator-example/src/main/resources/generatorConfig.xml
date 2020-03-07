@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!-- driver or class path error , need to specify the path-->
+    <classPathEntry location="/home/jun/.m2/repository/org/postgresql/postgresql/42.2.8/postgresql-42.2.8.jar" />
+    <context id="MySqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
+        <jdbcConnection driverClass="org.postgresql.Driver"
+                        connectionURL="jdbc:postgresql://localhost/testdb"
+                        userId="postgres"
+                        password="">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.example.mbg.demo.mybatisgeneratorexample.mbg.model"
+                            targetProject="src/main/java"/>
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources"/>
+
+        <javaClientGenerator targetPackage="com.example.mbg.demo.mybatisgeneratorexample.mbg.mapper"
+                             targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+
+        <table tableName= "users">
+            <generatedKey column="user_id" sqlStatement="JDBC" />
+        </table>
+
+        <table tableName= "shift">
+            <generatedKey column="id" sqlStatement="JDBC" />
+        </table>
+    </context>
+</generatorConfiguration>
