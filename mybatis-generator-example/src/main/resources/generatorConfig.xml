@@ -6,7 +6,8 @@
 <generatorConfiguration>
 
     <!-- driver or class path error , need to specify the path-->
-    <classPathEntry location="/home/jun/.m2/repository/org/postgresql/postgresql/42.2.8/postgresql-42.2.8.jar" />
+    <!-- don't need this line if generator plug in have dependecy driver
+    <!-- classPathEntry location="/home/jun/.m2/repository/org/postgresql/postgresql/42.2.8/postgresql-42.2.8.jar" / -->
     <context id="MySqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
         <jdbcConnection driverClass="org.postgresql.Driver"
                         connectionURL="jdbc:postgresql://localhost/testdb"
