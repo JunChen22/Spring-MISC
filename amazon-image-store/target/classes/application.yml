@@ -1,0 +1,9 @@
+amazonProperties:
+  bucketName: spring-image-store
+  accessKey: AKIAJAEBEKZIVUOTML6A
+  secretKey: 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
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 25MB
