@@ -1,0 +1,29 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=k8db
+    volumes:
+      - /home/jun/Desktop/data/db/pg:/var/lib/postgresql/data # data file
+      - /home/jun/Desktop/data/db/log:/var/log/postgresql # log files
+
+  app:
+    build:
+      context: .
+    image: 'kubernetes-java-spring-postgres:latest'
+    container_name: K8s-spring-postgres
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/k8db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - 8080:8080
