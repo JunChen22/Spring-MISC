@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-java-spring-postgre-deployment
+  labels:
+    app: kubernetes-java-spring-postgre
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubernetes-java-spring-postgre
+  template:
+    metadata:
+      labels:
+        app: kubernetes-java-spring-postgre
+    spec:
+      containers:
+      - name: kubernetes-java-spring-postgre
+        image: kubernetes-java-spring-postgres:latest
+        ports:
+        - containerPort: 8080
+        - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: postgres-user
+        - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: postgres-password
+        - name: DB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: postgres-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+spec:
+  type: NodePort
+  selector:
+    app: postgres
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30000
