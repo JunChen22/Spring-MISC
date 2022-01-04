@@ -1,35 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kubernetes-java-spring-postgre-deployment
+  name: webapp-deployment
   labels:
-    app: kubernetes-java-spring-postgre
+    app: webapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kubernetes-java-spring-postgre
+      app: webapp
   template:
     metadata:
       labels:
-        app: kubernetes-java-spring-postgre
+        app: webapp
     spec:
       containers:
-      - name: kubernetes-java-spring-postgre
-        image: kubernetes-java-spring-postgres:latest
+      - name: webapp
+        image: itsthatjun/springk8
         ports:
         - containerPort: 8080
+        env:
         - name: POSTGRES_USER
-            valueFrom:
-              secretKeyRef:
-                name: postgres-secret
-                key: postgres-user
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-user
         - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: postgres-secret
-                key: postgres-password
-        - name: DB_URL
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-password
+        - name: POSTGRES_HOST
           valueFrom:
             configMapKeyRef:
               name: postgres-config
