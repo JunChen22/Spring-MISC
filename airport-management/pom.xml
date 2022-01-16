@@ -17,12 +17,34 @@
     <description>Demo project for Spring Boot</description>
     <packaging>pom</packaging>
 
-    <properties>
-        <java.version>11</java.version>
-    </properties>
-
     <modules>
         <module>airport-api</module>
         <module>airport-core</module>
     </modules>
+
+    <properties>
+        <java.version>11</java.version>
+        <airport-core.version>0.0.1-SNAPSHOT</airport-core.version>
+    </properties>
+
+    <dependencies> <!-- always included in all child module -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.itsthatjun</groupId>
+                <artifactId>airport-core</artifactId>
+                <version>${airport-core.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

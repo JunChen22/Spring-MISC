@@ -9,5 +9,4 @@ public class AirportApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AirportApiApplication.class, args);
 	}
-
 }
