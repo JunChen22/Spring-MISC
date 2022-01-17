@@ -4,64 +4,52 @@ metadata:
   name: postgres-config
   namespace: default
 data:
-  postgres_user: admin
-  postgres_password: c1oudc0w
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: password
+  POSTGRES_HOST: postgres-service
+
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: postgres-pv-claim
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 32Gi
----
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+  name: postgres-deployment
+  labels:
+    app: postgres
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
   template:
     metadata:
       labels:
         app: postgres
     spec:
-      volumes:
-        - name: postgres-storage
-          persistentVolumeClaim:
-            claimName: postgres-pv-claim
       containers:
-        - image: postgres
-          name: postgres
+        - name: postgres
+          image: postgres
+          ports:
+            - containerPort: 5432
           env:
             - name: POSTGRES_USER
               valueFrom:
                 configMapKeyRef:
                   name: postgres-config
-                  key: postgres_user
+                  key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 configMapKeyRef:
                   name: postgres-config
-                  key: postgres_password
-            - name: PGDATA
-              value: /var/lib/postgresql/data/pgdata
-          ports:
-            - containerPort: 5432
-              name: postgres
-          volumeMounts:
-            - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
+                  key: POSTGRES_PASSWORD
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres
+  name: postgres-service
 spec:
-  type: ClusterIP
-  ports:
-    - port: 5432
   selector:
     app: postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

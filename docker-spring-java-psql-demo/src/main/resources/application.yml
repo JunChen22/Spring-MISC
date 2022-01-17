@@ -1,0 +1,10 @@
+# material used
+# https://blog.csdn.net/m0_37524586/article/details/88351833
+# https://v.qq.com/x/page/l0891rocdcm.html
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost/dockertestdb
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+    initialization-mode: always
