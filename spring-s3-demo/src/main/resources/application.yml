@@ -1,0 +1,11 @@
+server:
+  port: 8081
+  shutdown: graceful
+
+aws:
+  region: us-east-1
+  credentials:
+    access-key: test
+    secret-key: test
+  s3:
+    endpoint: http://localhost:4566

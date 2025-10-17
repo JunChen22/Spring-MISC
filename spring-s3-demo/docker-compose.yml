@@ -1,0 +1,39 @@
+services:
+  spring-s3:
+    build: .
+    container_name: spring-s3
+    ports:
+      - "8081:8081"
+
+  localstack:
+    image: localstack/localstack:4.5.0
+    container_name: localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3,lambda,logs
+      - LAMBDA_EXECUTOR=docker
+      - LAMBDA_DOCKER_REUSE=true      # default true
+      - LAMBDA_LIMITS_CONCURRENT_EXECUTIONS=3
+      - DEBUG=1
+      - DEFAULT_REGION=us-east-1
+      - DATA_DIR=/var/lib/localstack
+    volumes:
+      - localstack-data:/var/lib/localstack
+      - ./document/localstack-init:/etc/localstack/init/ready.d  # initialization scripts
+      - ./document/lambda-packages:/var/lib/localstack/lambda   # lambda functions
+      - ./document/photos:/photos                               # sample photos
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:4566/_localstack/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+
+volumes:
+  localstack-data:
+
+
+
+
