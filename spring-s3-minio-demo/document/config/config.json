@@ -1,0 +1,15 @@
+{
+  "notify": {
+    "amqp": {
+      "thumbnail_noti": {
+        "enable": true,
+        "url": "amqp://guest:guest@rabbitmq:5672",
+        "exchange": "thumbnail",
+        "routingKey": "",
+        "exchangeType": "topic",
+        "deliveryMode": 1,
+        "durable": true
+      }
+    }
+  }
+}

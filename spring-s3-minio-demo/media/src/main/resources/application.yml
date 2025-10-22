@@ -1,0 +1,38 @@
+server:
+  port: 8080
+  shutdown: graceful
+
+spring:
+  application:
+    name: media
+  rabbitmq:
+    host: localhost
+    port: 5672
+    virtual-host: /
+
+aws:
+  region: us-east-1
+  credentials:
+    access-key: minioadmin
+    secret-key: minioadmin
+  s3:
+    endpoint: http://localhost:9000
+
+spring.cloud.stream.defaultBinder: rabbit
+
+spring.cloud:
+  stream:
+    default:
+      contentType: application/json
+    bindings:
+      thumbnail-out-0:  # outgoing message
+        destination: thumbnail
+        producer:
+          required-groups: thumbnailGroup
+
+---
+spring.config.activate.on-profile: docker
+
+spring:
+  rabbitmq:
+    host: rabbitmq

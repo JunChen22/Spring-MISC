@@ -1,0 +1,14 @@
+server.error.include-message: always
+
+spring.cloud.stream.defaultBinder: rabbit
+eureka.client.enabled: false
+
+logging:
+  level:
+    root: INFO
+    io.github.jun.ecom: DEBUG
+
+spring.batch.job.enabled: false
+
+otel:
+  enabled: false
